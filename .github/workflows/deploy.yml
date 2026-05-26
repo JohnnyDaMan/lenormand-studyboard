@@ -30,7 +30,7 @@ jobs:
           version: 10
 
       - name: Set up Node
-        uses: actions/node-setup@v4
+        uses: actions/setup-node@v4  # ← 올바르게 수정되었습니다!
         with:
           node-version: 22
           cache: 'pnpm'
