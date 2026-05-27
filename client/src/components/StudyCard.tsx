@@ -20,7 +20,7 @@ export const CARD_EMOJIS: Record<number, string> = {
   14: "🦊", // Fox
   15: "🐻", // Bear
   16: "⭐", // Star
-  17: " stork ", // Stork (황새 이모지가 없거나 기기별 편차가 크므로 텍스트 또는 날개)
+  17: "🪶", // Stork
   18: "🐕", // Dog
   19: "🏰", // Tower
   20: "🏡", // Garden (공원/정원)
@@ -41,9 +41,6 @@ export const CARD_EMOJIS: Record<number, string> = {
   35: "⚓", // Anchor
   36: "✝️", // Cross
 };
-
-// 황새 이모지 커스텀 보정
-CARD_EMOJIS[17] = "🪶"; 
 
 export default function StudyCard({
   card,
@@ -83,19 +80,24 @@ export default function StudyCard({
       <div
         onClick={handleFlip}
         className={cn(
-          "relative w-36 h-48 cursor-pointer perspective-1000 transition-transform duration-500",
+          "relative w-36 h-48 cursor-pointer [perspective:1000px] transition-transform duration-300",
           interactive && "hover:-translate-y-2 active:scale-95"
         )}
       >
         <div
           className={cn(
-            "relative w-full h-full duration-500 transform-style-3d border border-primary/20 rounded-xl shadow-md bg-card text-card-foreground",
-            isFlipped && "rotate-y-180",
+            "relative w-full h-full duration-500 [transform-style:preserve-3d] border border-primary/20 rounded-xl shadow-md bg-card text-card-foreground",
+            isFlipped && "[transform:rotateY(180deg)]",
             highlighted && "ring-2 ring-accent shadow-lg shadow-accent/20"
           )}
         >
-          {/* Card Front */}
-          <div className="absolute inset-0 w-full h-full rounded-xl bg-gradient-to-b from-card to-background flex flex-col justify-between p-3 backface-hidden border border-primary/10">
+          {/* Card Front (isFlipped가 아닐 때만 내부 텍스트 렌더링하여 z-index 겹침/충돌을 방지합니다) */}
+          <div 
+            className={cn(
+              "absolute inset-0 w-full h-full rounded-xl bg-gradient-to-b from-card to-background flex flex-col justify-between p-3 border border-primary/10 [backface-visibility:hidden]",
+              isFlipped ? "opacity-0 pointer-events-none" : "opacity-100"
+            )}
+          >
             {/* Top Info */}
             <div className="flex justify-between items-center text-[10px] text-primary/70 font-esoteric">
               <span>No. {card.id}</span>
@@ -120,8 +122,13 @@ export default function StudyCard({
             </div>
           </div>
 
-          {/* Card Back (Parchment Paper Feel) */}
-          <div className="absolute inset-0 w-full h-full rounded-xl rotate-y-180 backface-hidden overflow-hidden border border-primary/20 bg-amber-50/95 flex flex-col justify-center p-3 text-center">
+          {/* Card Back (isFlipped일 때만 텍스트를 노출하여 브라우저 3D 겹침 에러를 완벽 우회합니다) */}
+          <div 
+            className={cn(
+              "absolute inset-0 w-full h-full rounded-xl [transform:rotateY(180deg)] overflow-hidden border border-primary/20 bg-amber-50/95 flex flex-col justify-center p-3 text-center [backface-visibility:hidden]",
+              isFlipped ? "opacity-100" : "opacity-0 pointer-events-none"
+            )}
+          >
             <div className="text-[9px] text-primary/80 font-esoteric mb-1">
               No. {card.id} {card.name}
             </div>
