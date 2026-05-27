@@ -1,342 +1,413 @@
 export interface LenormandCard {
   id: number;
-  nameKr: string;
-  nameEn: string;
-  keywords: {
-    nouns: string[];
-    adjectives: string[];
-  };
-  image: string;
+  name: string;
+  krName: string;
   playingCard: string;
-  type: "positive" | "positive-neutral" | "neutral" | "neutral-negative" | "negative";
+  // 근거리 명사 키워드 (2개)
+  nearNouns: string[];
+  // 원거리 명사 키워드 (2개)
+  farNouns: string[];
+  // 형용사 키워드 (2개)
+  adjectives: string[];
+  polarity: 'positive' | 'neutral' | 'negative' | 'positive-neutral' | 'neutral-negative';
+  description: string;
 }
 
 export const LENORMAND_CARDS: LenormandCard[] = [
   {
     id: 1,
-    nameKr: "기사",
-    nameEn: "Cavalier",
-    keywords: { nouns: ["소식", "방문객"], adjectives: ["빠른", "직접적인"] },
-    image: "🏇",
+    name: "Cavalier",
+    krName: "기사",
     playingCard: "9 of Hearts",
-    type: "positive-neutral"
+    nearNouns: ["가정소식", "방문"],
+    farNouns: ["타인소식", "외부소식"],
+    adjectives: ["신속한", "활동적인"],
+    polarity: "positive-neutral",
+    description: "신속하게 다가오는 소식이나 방문자. 지인 또는 가정 내부로부터 오는 중요한 기별."
   },
   {
     id: 2,
-    nameKr: "클로버",
-    nameEn: "Clover",
-    keywords: { nouns: ["기쁨", "작은 행운"], adjectives: ["운이 좋은", "짧은"] },
-    image: "🍀",
+    name: "Clover",
+    krName: "클로버",
     playingCard: "6 of Diamonds",
-    type: "positive"
+    nearNouns: ["기쁨", "행운"],
+    farNouns: ["외로움", "불안"],
+    adjectives: ["가벼운", "일시적인"],
+    polarity: "positive",
+    description: "짧고 확실한 기쁨과 소소한 행운. 단, 멀어질 경우 일시적인 외로움이나 작은 불안을 나타냄."
   },
   {
     id: 3,
-    nameKr: "배",
-    nameEn: "Ship",
-    keywords: { nouns: ["여행", "기회"], adjectives: ["먼", "이동하는"] },
-    image: "🚢",
+    name: "Ship",
+    krName: "배",
     playingCard: "10 of Spades",
-    type: "positive-neutral"
+    nearNouns: ["여행", "기회"],
+    farNouns: ["갈망", "원거리"],
+    adjectives: ["이동적인", "발전적인"],
+    polarity: "positive-neutral",
+    description: "이동과 여행, 비즈니스의 발전과 새로운 기회. 멀어질 경우 먼 거리감이나 아득한 갈망을 상징."
   },
   {
     id: 4,
-    nameKr: "집",
-    nameEn: "House",
-    keywords: { nouns: ["가정", "안정"], adjectives: ["안전한", "편안한"] },
-    image: "🏠",
+    name: "House",
+    krName: "집",
     playingCard: "King of Hearts",
-    type: "positive-neutral"
+    nearNouns: ["안식처", "사생활"],
+    farNouns: ["가정문제", "이웃문제"],
+    adjectives: ["안정적인", "사적인"],
+    polarity: "positive-neutral",
+    description: "가족, 주거, 안정적인 안식처와 사생활. 멀어질 경우 이웃 간의 마찰이나 가정 내 사소한 문제."
   },
   {
     id: 5,
-    nameKr: "나무",
-    nameEn: "Tree",
-    keywords: { nouns: ["건강", "성장"], adjectives: ["만성적인", "영적인"] },
-    image: "🌳",
+    name: "Tree",
+    krName: "나무",
     playingCard: "7 of Hearts",
-    type: "neutral-negative"
+    nearNouns: ["건강문제", "회복"],
+    farNouns: ["장수", "지연"],
+    adjectives: ["느린", "지속적인"],
+    polarity: "neutral",
+    description: "건강 상태, 생명력 및 영적 성장. 멀리 있을 때는 지연되지만 결국 단단해지는 장수와 영속성."
   },
   {
     id: 6,
-    nameKr: "구름",
-    nameEn: "Clouds",
-    keywords: { nouns: ["장애물", "혼란"], adjectives: ["흐린", "불확실한"] },
-    image: "☁️",
+    name: "Clouds",
+    krName: "구름",
     playingCard: "King of Clubs",
-    type: "negative"
+    nearNouns: ["혼란", "고난"],
+    farNouns: ["불운", "흐림"],
+    adjectives: ["불확실한", "우울한"],
+    polarity: "negative",
+    description: "일시적인 판단 장애와 혼란, 가려진 진실. 멀리 있어도 여전히 흐린 상황과 불운을 유발."
   },
   {
     id: 7,
-    nameKr: "뱀",
-    nameEn: "Snake",
-    keywords: { nouns: ["배신", "책략"], adjectives: ["복잡한", "기만적인"] },
-    image: "🐍",
+    name: "Snake",
+    krName: "뱀",
     playingCard: "Queen of Clubs",
-    type: "neutral-negative"
+    nearNouns: ["배신", "복잡성"],
+    farNouns: ["해결", "우회"],
+    adjectives: ["교활한", "꼬인"],
+    polarity: "negative",
+    description: "교활한 적, 위선, 배신 또는 복잡하게 얽힌 문제. 멀어질 경우 오히려 우회로를 찾거나 서서히 해결됨."
   },
   {
     id: 8,
-    nameKr: "관",
-    nameEn: "Coffin",
-    keywords: { nouns: ["종결", "상실"], adjectives: ["슬픈", "파괴적인"] },
-    image: "⚰️",
+    name: "Coffin",
+    krName: "관",
     playingCard: "9 of Diamonds",
-    type: "negative"
+    nearNouns: ["상실", "종결"],
+    farNouns: ["일시상실", "쇠약"],
+    adjectives: ["치명적인", "폐쇄적인"],
+    polarity: "negative",
+    description: "피할 수 없는 중대한 상실, 종결, 관계의 단절. 멀어질 때는 일시적인 기력 쇠약이나 경미한 손실."
   },
   {
     id: 9,
-    nameKr: "꽃다발",
-    nameEn: "Bouquet",
-    keywords: { nouns: ["선물", "기쁨"], adjectives: ["아름다운", "친근한"] },
-    image: "💐",
+    name: "Bouquet",
+    krName: "꽃다발",
     playingCard: "Queen of Spades",
-    type: "positive"
+    nearNouns: ["행복", "선물"],
+    farNouns: ["조력자", "위로"],
+    adjectives: ["우아한", "호의적인"],
+    polarity: "positive",
+    description: "큰 기쁨, 사회적 인정, 아름다운 선물과 행복. 멀어질 때는 따뜻한 조력자의 등장이나 마음의 위로."
   },
   {
     id: 10,
-    nameKr: "낫",
-    nameEn: "Scythe",
-    keywords: { nouns: ["위험", "수확"], adjectives: ["갑작스러운", "날카로운"] },
-    image: "✂️",
+    name: "Scythe",
+    krName: "낫",
     playingCard: "Jack of Diamonds",
-    type: "negative"
+    nearNouns: ["위험", "절단"],
+    farNouns: ["공격성", "지인피해"],
+    adjectives: ["날카로운", "갑작스러운"],
+    polarity: "negative",
+    description: "갑작스러운 위험, 수술, 신속한 단절이나 결정. 멀리 있을 경우 주변 지인의 피해나 간접적 공격성."
   },
   {
     id: 11,
-    nameKr: "채찍",
-    nameEn: "Rod",
-    keywords: { nouns: ["갈등", "반복"], adjectives: ["고통스러운", "논쟁적인"] },
-    image: "🧹",
+    name: "Whip",
+    krName: "채찍",
     playingCard: "Jack of Clubs",
-    type: "negative"
+    nearNouns: ["갈등", "대면"],
+    farNouns: ["긴장", "불안"],
+    adjectives: ["논쟁적인", "반복적인"],
+    polarity: "negative",
+    description: "폭력, 신체적 학대, 갈등, 반복되는 다툼과 소송. 멀어질 경우 지속적인 심리적 긴장과 불안."
   },
   {
     id: 12,
-    nameKr: "새",
-    nameEn: "Birds",
-    keywords: { nouns: ["소통", "대화"], adjectives: ["불안한", "바쁜"] },
-    image: "🦉",
+    name: "Birds",
+    krName: "새",
     playingCard: "7 of Diamonds",
-    type: "neutral-negative"
+    nearNouns: ["스트레스", "동요"],
+    farNouns: ["여행", "발표"],
+    adjectives: ["불안한", "수다스러운"],
+    polarity: "neutral-negative",
+    description: "사소한 걱정, 구설수, 흥분, 대화와 수다. 멀어질 때는 가벼운 단기 여행이나 공식적인 발표."
   },
   {
     id: 13,
-    nameKr: "아이",
-    nameEn: "Child",
-    keywords: { nouns: ["자녀", "새로운 시작"], adjectives: ["순수한", "작은"] },
-    image: "👶",
+    name: "Child",
+    krName: "아이",
     playingCard: "Jack of Spades",
-    type: "positive-neutral"
+    nearNouns: ["신뢰", "도움"],
+    farNouns: ["무력감", "순진함"],
+    adjectives: ["작은", "순수한"],
+    polarity: "positive-neutral",
+    description: "새로운 시작, 아이, 신뢰와 호의적인 도움. 멀리 있을 경우 미성숙함으로 인한 무력감이나 지나친 순진함."
   },
   {
     id: 14,
-    nameKr: "여우",
-    nameEn: "Fox",
-    keywords: { nouns: ["경쟁자", "일"], adjectives: ["영리한", "교활한"] },
-    image: "🦊",
+    name: "Fox",
+    krName: "여우",
     playingCard: "9 of Clubs",
-    type: "negative"
+    nearNouns: ["기만", "사기"],
+    farNouns: ["오해", "경계"],
+    adjectives: ["거짓된", "잘못된"],
+    polarity: "negative",
+    description: "교활한 속임수, 직장 내의 모함, 생존을 위한 기만. 멀리 있을 경우 가벼운 오해나 단순한 경계 경보."
   },
   {
     id: 15,
-    nameKr: "곰",
-    nameEn: "Bear",
-    keywords: { nouns: ["힘", "재정"], adjectives: ["보호하는", "질투하는"] },
-    image: "🐻",
+    name: "Bear",
+    krName: "곰",
     playingCard: "10 of Clubs",
-    type: "neutral"
+    nearNouns: ["보호", "권력"],
+    farNouns: ["질투", "음모"],
+    adjectives: ["강력한", "보호적인"],
+    polarity: "positive-neutral",
+    description: "힘과 재정적 안정, 어머니 같은 든든한 보호와 권력. 멀리 있을 때는 타인의 질투나 시샘, 은밀한 음모."
   },
   {
     id: 16,
-    nameKr: "별",
-    nameEn: "Stars",
-    keywords: { nouns: ["희망", "행운"], adjectives: ["우주적인", "명확한"] },
-    image: "⭐",
+    name: "Star",
+    krName: "별",
     playingCard: "6 of Hearts",
-    type: "positive"
+    nearNouns: ["성공", "행운"],
+    farNouns: ["불운", "오판"],
+    adjectives: ["희망적인", "통찰적인"],
+    polarity: "positive",
+    description: "꿈과 소망의 실현, 우주적 가이드, 영감과 행운. 멀리 떨어지면 일시적인 오판이나 소소한 불운."
   },
   {
     id: 17,
-    nameKr: "황새",
-    nameEn: "Storks",
-    keywords: { nouns: ["변화", "이동"], adjectives: ["임박한", "개선되는"] },
-    image: "🦢",
+    name: "Stork",
+    krName: "황새",
     playingCard: "Queen of Hearts",
-    type: "positive-neutral"
+    nearNouns: ["변화", "개선"],
+    farNouns: ["정체", "좌절"],
+    adjectives: ["변화하는", "상승적인"],
+    polarity: "positive-neutral",
+    description: "이사, 이직, 출산 등 긍정적이고 건설적인 환경 변화. 멀어지면 변화가 가로막히는 정체나 좌절."
   },
   {
     id: 18,
-    nameKr: "개",
-    nameEn: "Dog",
-    keywords: { nouns: ["친구", "동료"], adjectives: ["충직한", "친숙한"] },
-    image: "🐶",
+    name: "Dog",
+    krName: "개",
     playingCard: "10 of Hearts",
-    type: "positive-neutral"
+    nearNouns: ["우정", "동맹"],
+    farNouns: ["실망", "불충"],
+    adjectives: ["충실한", "믿음직한"],
+    polarity: "positive",
+    description: "충직한 친구, 파트너십, 흔들리지 않는 신뢰와 우정. 멀어지면 배신이나 동료에 대한 실망감 유발."
   },
   {
     id: 19,
-    nameKr: "탑",
-    nameEn: "Tower",
-    keywords: { nouns: ["기관", "고독"], adjectives: ["공식적인", "높은"] },
-    image: "🏰",
+    name: "Tower",
+    krName: "탑",
     playingCard: "6 of Spades",
-    type: "neutral"
+    nearNouns: ["장수", "은퇴"],
+    farNouns: ["고립", "분리"],
+    adjectives: ["공식적인", "고독한"],
+    polarity: "neutral",
+    description: "정부 기관, 대기업, 법적 보호, 장수와 은퇴 생활. 멀리 있을 때는 고독감, 사회적 단절과 분리."
   },
   {
     id: 20,
-    nameKr: "정원",
-    nameEn: "Garden",
-    keywords: { nouns: ["대중", "사교 모임"], adjectives: ["공개적인", "사회적인"] },
-    image: "🏡",
+    name: "Garden",
+    krName: "정원",
     playingCard: "8 of Spades",
-    type: "neutral"
+    nearNouns: ["인맥", "교류"],
+    farNouns: ["고립", "거부"],
+    adjectives: ["사회적인", "공개적인"],
+    polarity: "positive-neutral",
+    description: "대중 행사, 사교 모임, 넓은 인간관계와 네트워킹. 멀어지면 대중으로부터의 거부나 고립을 의미."
   },
   {
     id: 21,
-    nameKr: "산",
-    nameEn: "Mountain",
-    keywords: { nouns: ["장애물", "지연"], adjectives: ["차가운", "차단된"] },
-    image: "⛰️",
+    name: "Mountain",
+    krName: "산",
     playingCard: "8 of Clubs",
-    type: "negative"
+    nearNouns: ["장애물", "적"],
+    farNouns: ["조력자", "보호벽"],
+    adjectives: ["막힌", "완고한"],
+    polarity: "negative",
+    description: "앞을 가로막는 거대한 장애물, 지연, 강력한 적수. 멀리 떨어지면 든든한 보호벽이나 조력자의 방어막."
   },
   {
     id: 22,
-    nameKr: "길",
-    nameEn: "Paths",
-    keywords: { nouns: ["선택", "결정"], adjectives: ["갈라지는", "자유로운"] },
-    image: "🛣️",
+    name: "Road",
+    krName: "길",
     playingCard: "Queen of Diamonds",
-    type: "neutral"
+    nearNouns: ["선택", "불안"],
+    farNouns: ["극복", "주도권"],
+    adjectives: ["갈림길의", "결정적인"],
+    polarity: "neutral",
+    description: "인생의 갈림길, 여러 대안, 결단이 필요한 순간의 불안. 멀어지면 갈등을 극복하고 주도권을 잡음."
   },
   {
     id: 23,
-    nameKr: "생쥐",
-    nameEn: "Mice",
-    keywords: { nouns: ["상실", "도난"], adjectives: ["스트레스 받는", "갉아먹는"] },
-    image: "🐭",
+    name: "Mouse",
+    krName: "쥐",
     playingCard: "7 of Clubs",
-    type: "negative"
+    nearNouns: ["손실", "불안"],
+    farNouns: ["보전실패", "침식"],
+    adjectives: ["소모적인", "불안정한"],
+    polarity: "negative",
+    description: "서서히 갉아먹는 재정적 손실, 스트레스, 도난. 멀어지면 대규모 상실은 면하나 보전 실패 및 야금야금 침식됨."
   },
   {
     id: 24,
-    nameKr: "하트",
-    nameEn: "Heart",
-    keywords: { nouns: ["사랑", "감정"], adjectives: ["열정적인", "애정 어린"] },
-    image: "❤️",
+    name: "Heart",
+    krName: "하트",
     playingCard: "Jack of Hearts",
-    type: "positive"
+    nearNouns: ["로맨스", "애정"],
+    farNouns: ["우정", "플라토닉사랑"],
+    adjectives: ["따뜻한", "애정 어린"],
+    polarity: "positive",
+    description: "뜨거운 사랑, 연애 감정, 로맨스와 강렬한 열정. 멀리 떨어지면 연애보다 끈끈한 우정이나 플라토닉한 관계."
   },
   {
     id: 25,
-    nameKr: "반지",
-    nameEn: "Ring",
-    keywords: { nouns: ["약속", "계약"], adjectives: ["공식적인", "반복되는"] },
-    image: "💍",
+    name: "Ring",
+    krName: "반지",
     playingCard: "Ace of Clubs",
-    type: "neutral"
+    nearNouns: ["관계", "계약"],
+    farNouns: ["이별", "단절"],
+    adjectives: ["결속된", "지속적인"],
+    polarity: "positive",
+    description: "결혼, 파트너십, 비즈니스 계약 및 결속력. 멀어질 경우 약속의 불이행, 이별 및 계약의 파기/단절."
   },
   {
     id: 26,
-    nameKr: "책",
-    nameEn: "Book",
-    keywords: { nouns: ["비밀", "스터디"], adjectives: ["숨겨진", "알려지지 않은"] },
-    image: "📖",
+    name: "Book",
+    krName: "책",
     playingCard: "10 of Diamonds",
-    type: "neutral-negative"
+    nearNouns: ["비밀폭로", "당혹감"],
+    farNouns: ["비밀", "놀라움"],
+    adjectives: ["숨겨진", "학구적인"],
+    polarity: "neutral",
+    description: "숨겨진 정보, 연구, 일기, 비밀스러운 프로젝트. 가까울 때는 비밀이 폭로되어 당혹감을 느끼게 됨."
   },
   {
     id: 27,
-    nameKr: "편지",
-    nameEn: "Letter",
-    keywords: { nouns: ["서류", "메시지"], adjectives: ["서면의", "공식적인"] },
-    image: "✉️",
+    name: "Letter",
+    krName: "편지",
     playingCard: "7 of Spades",
-    type: "neutral"
+    nearNouns: ["통신", "문서"],
+    farNouns: ["소식", "피상성"],
+    adjectives: ["비대면의", "일시적인"],
+    polarity: "neutral",
+    description: "이메일, 우편물, 계약서 등 서면 통신과 서류. 멀어질 경우 깊이 없는 소식이나 피상적인 연락."
   },
   {
     id: 28,
-    nameKr: "신사",
-    nameEn: "Lord",
-    keywords: { nouns: ["남성", "질문자"], adjectives: ["이성적인", "중요한"] },
-    image: "👨",
+    name: "Man",
+    krName: "신사",
     playingCard: "Ace of Hearts",
-    type: "neutral"
+    nearNouns: ["질문자", "중요남성"],
+    farNouns: ["남성인물", "관심남성"],
+    adjectives: ["남성적인", "의지적인"],
+    polarity: "neutral",
+    description: "남성 질문자 본인, 혹은 질문자의 인생에서 가장 중요한 핵심 남성 인물."
   },
   {
     id: 29,
-    nameKr: "숙녀",
-    nameEn: "Lady",
-    keywords: { nouns: ["여성", "질문자"], adjectives: ["직관적인", "중요한"] },
-    image: "👩",
+    name: "Lady",
+    krName: "숙녀",
     playingCard: "Ace of Spades",
-    type: "neutral"
+    nearNouns: ["질문자", "중요여성"],
+    farNouns: ["여성인물", "관심여성"],
+    adjectives: ["여성적인", "수용적인"],
+    polarity: "neutral",
+    description: "여성 질문자 본인, 혹은 질문자의 인생에서 가장 중요한 핵심 여성 인물."
   },
   {
     id: 30,
-    nameKr: "백합",
-    nameEn: "Lily",
-    keywords: { nouns: ["가족", "평화"], adjectives: ["행복한", "성숙한"] },
-    image: "🪻",
+    name: "Lily",
+    krName: "백합",
     playingCard: "King of Spades",
-    type: "positive-neutral"
+    nearNouns: ["행복감", "보호"],
+    farNouns: ["가족문제", "슬픔"],
+    adjectives: ["관능적인", "고결한"],
+    polarity: "positive-neutral",
+    description: "순수함, 평화, 조화로운 성취, 가문의 보호와 행복. 멀어지면 슬픔이나 가족 간의 숨겨진 불화."
   },
   {
     id: 31,
-    nameKr: "태양",
-    nameEn: "Sun",
-    keywords: { nouns: ["성공", "에너지"], adjectives: ["밝은", "확실한"] },
-    image: "☀️",
+    name: "Sun",
+    krName: "태양",
     playingCard: "Ace of Diamonds",
-    type: "positive"
+    nearNouns: ["성공", "큰행운"],
+    farNouns: ["의기저하", "시련"],
+    adjectives: ["밝은", "낙관적인"],
+    polarity: "positive",
+    description: "최고의 에너지, 성공, 승리, 모든 부정적인 성향의 완화. 멀어지면 빛을 잃어 의기가 저하되거나 작은 시련."
   },
   {
     id: 32,
-    nameKr: "달",
-    nameEn: "Moon",
-    keywords: { nouns: ["직업", "명성"], adjectives: ["감성적인", "빛나는"] },
-    image: "🌙",
+    name: "Moon",
+    krName: "달",
     playingCard: "8 of Hearts",
-    type: "positive"
+    nearNouns: ["인정", "승진"],
+    farNouns: ["누락", "정체"],
+    adjectives: ["명예로운", "직업적인"],
+    polarity: "positive-neutral",
+    description: "직업적 명성, 대중적 인기, 사회적 인정과 승진. 멀어지면 승진 누락, 대중의 외면, 혹은 감정적 정체."
   },
   {
     id: 33,
-    nameKr: "열쇠",
-    nameEn: "Key",
-    keywords: { nouns: ["해결책", "섭리"], adjectives: ["결정적인", "중요한"] },
-    image: "🔑",
+    name: "Key",
+    krName: "열쇠",
     playingCard: "8 of Diamonds",
-    type: "positive"
+    nearNouns: ["확정", "성취"],
+    farNouns: ["좌절", "불발"],
+    adjectives: ["결정적인", "필연적인"],
+    polarity: "positive",
+    description: "해결책, 필연적인 운명, 확고한 성취와 진리. 멀어지면 답을 찾지 못하는 좌절이나 기회의 불발."
   },
   {
     id: 34,
-    nameKr: "물고기",
-    nameEn: "Fish",
-    keywords: { nouns: ["재정", "수입"], adjectives: ["풍요로운", "유동적인"] },
-    image: "🐟",
+    name: "Fish",
+    krName: "물고기",
     playingCard: "King of Diamonds",
-    type: "positive"
+    nearNouns: ["수입", "기회"],
+    farNouns: ["궁핍", "재정시련"],
+    adjectives: ["풍요로운", "유동적인"],
+    polarity: "positive",
+    description: "재정적 풍요, 비즈니스 성공, 큰 수입과 유동성. 멀어지면 금전적 가뭄, 궁핍 및 심각한 재정 시련."
   },
   {
     id: 35,
-    nameKr: "닻",
-    nameEn: "Anchor",
-    keywords: { nouns: ["안정성", "목표"], adjectives: ["안전한", "지속적인"] },
-    image: "⚓",
+    name: "Anchor",
+    krName: "닻",
     playingCard: "9 of Spades",
-    type: "positive-neutral"
+    nearNouns: ["안정", "희망"],
+    farNouns: ["좌절", "불안정"],
+    adjectives: ["견고한", "장기적인"],
+    polarity: "positive-neutral",
+    description: "목표의 도달, 장기적인 안정감, 확고한 신뢰와 희망. 멀어지면 정착하지 못하는 좌절감과 흔들리는 불안정."
   },
   {
     id: 36,
-    nameKr: "십자가",
-    nameEn: "Cross",
-    keywords: { nouns: ["비탄", "시련"], adjectives: ["운명적인", "고통스러운"] },
-    image: "✝️",
+    name: "Cross",
+    krName: "십자가",
     playingCard: "6 of Clubs",
-    type: "negative"
+    nearNouns: ["완화", "통과시험"],
+    farNouns: ["고난", "숙명"],
+    adjectives: ["무거운", "숙명적인"],
+    polarity: "negative",
+    description: "피할 수 없는 무거운 책임, 카르마, 종교적 숙명. 가까우면 고난이 완화되거나 극복 가능한 통과 시험이 됨."
   }
 ];
-
-export const CARD_BACK_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663647956884/ejgy8oorPjCnGNW9CiNrpB/lenormand_card_back-JuWSDtyjq3y6DcCXEtZqL8.webp";
-export const MYSTICAL_BG_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663647956884/ejgy8oorPjCnGNW9CiNrpB/mystical_studyboard_bg-euwQYaEES8xa56pCYDUsdb.webp";

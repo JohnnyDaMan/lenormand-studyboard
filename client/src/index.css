@@ -27,46 +27,86 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 :root {
-  /* Mystical Esoteric Theme (Midnight Blue & Vintage Gold) */
-  --background: oklch(0.12 0.02 260); /* #070B19 - Very dark midnight blue */
-  --foreground: oklch(0.95 0.01 60); /* Creamy white */
-  
-  --primary: oklch(0.75 0.15 85); /* #D4AF37 - Antique Gold */
-  --primary-foreground: oklch(0.1 0.01 260); /* Dark navy */
-  
-  --secondary: oklch(0.22 0.04 260); /* Medium midnight blue */
-  --secondary-foreground: oklch(0.85 0.02 85); /* Soft gold */
-  
-  --card: oklch(0.15 0.03 260); /* Darker blue card */
-  --card-foreground: oklch(0.95 0.01 60);
-  
-  --popover: oklch(0.15 0.03 260);
-  --popover-foreground: oklch(0.95 0.01 60);
-  
-  --muted: oklch(0.18 0.02 260);
-  --muted-foreground: oklch(0.7 0.01 260);
-  
-  --accent: oklch(0.75 0.15 85);
-  --accent-foreground: oklch(0.1 0.01 260);
-  
-  --destructive: oklch(0.55 0.18 25); /* Crimson red for warnings */
-  --destructive-foreground: oklch(0.98 0.01 60);
-  
-  --border: oklch(0.3 0.05 85 / 40%); /* Subtle gold border */
-  --input: oklch(0.18 0.02 260);
-  --ring: oklch(0.75 0.15 85);
-  
-  --radius: 0.75rem;
-  
-  --sidebar: oklch(0.12 0.02 260);
-  --sidebar-foreground: oklch(0.95 0.01 60);
-  --sidebar-border: oklch(0.3 0.05 85 / 20%);
+  /* Warm Parchment & Soft Gold Theme (우아하고 눈이 편안한 빈티지 양장본 스타일) */
+  --background: oklch(0.96 0.015 85); /* 부드러운 양장본 종이 질감 느낌의 밝은 미색 */
+  --foreground: oklch(0.25 0.02 60); /* 짙은 브라운/차콜톤의 텍스트로 가독성 확보 */
+  --card: oklch(0.98 0.01 85); /* 조금 더 밝은 아이보리색 카드 */
+  --card-foreground: oklch(0.25 0.02 60);
+  --popover: oklch(0.98 0.01 85);
+  --popover-foreground: oklch(0.25 0.02 60);
+  --primary: oklch(0.45 0.04 45); /* 고급스러운 앤틱 가죽 브라운 */
+  --primary-foreground: oklch(0.98 0.01 85);
+  --secondary: oklch(0.92 0.02 85); /* 차분한 샌드 골드 */
+  --secondary-foreground: oklch(0.3 0.03 50);
+  --muted: oklch(0.91 0.015 85);
+  --muted-foreground: oklch(0.45 0.015 60);
+  --accent: oklch(0.85 0.06 75); /* 빈티지 골드 하이라이트 */
+  --accent-foreground: oklch(0.2 0.03 40);
+  --destructive: oklch(0.55 0.12 25); /* 차분한 빈티지 레드 */
+  --destructive-foreground: oklch(0.98 0.01 85);
+  --border: oklch(0.85 0.02 80); /* 은은한 앤틱 골드/베이지 테두리 */
+  --input: oklch(0.88 0.02 80);
+  --ring: oklch(0.65 0.05 60);
+  --radius: 0.65rem;
+
+  --sidebar: oklch(0.94 0.015 85);
+  --sidebar-foreground: oklch(0.25 0.02 60);
+  --sidebar-accent: oklch(0.88 0.04 75);
+  --sidebar-accent-foreground: oklch(0.2 0.03 40);
+  --sidebar-border: oklch(0.85 0.02 80);
+  --sidebar-ring: oklch(0.65 0.05 60);
+
+  --chart-1: oklch(0.55 0.12 25);
+  --chart-2: oklch(0.45 0.04 45);
+  --chart-3: oklch(0.85 0.06 75);
+  --chart-4: oklch(0.65 0.05 60);
+  --chart-5: oklch(0.92 0.02 85);
+}
+
+/* Dark mode fallback - keep it cozy but matching the light parchment */
+.dark {
+  --background: oklch(0.18 0.01 60); /* 아늑하고 깊은 빈티지 가죽 다크 브라운 */
+  --foreground: oklch(0.88 0.015 85);
+  --card: oklch(0.22 0.01 60);
+  --card-foreground: oklch(0.88 0.015 85);
+  --popover: oklch(0.22 0.01 60);
+  --popover-foreground: oklch(0.88 0.015 85);
+  --primary: oklch(0.85 0.06 75); /* 빈티지 골드 */
+  --primary-foreground: oklch(0.18 0.01 60);
+  --secondary: oklch(0.28 0.015 60);
+  --secondary-foreground: oklch(0.85 0.06 75);
+  --muted: oklch(0.25 0.01 60);
+  --muted-foreground: oklch(0.65 0.015 70);
+  --accent: oklch(0.3 0.02 70);
+  --accent-foreground: oklch(0.95 0.03 80);
+  --destructive: oklch(0.55 0.12 25);
+  --destructive-foreground: oklch(0.98 0.01 85);
+  --border: oklch(0.32 0.015 65);
+  --input: oklch(0.32 0.015 65);
+  --ring: oklch(0.85 0.06 75);
+
+  --sidebar: oklch(0.2 0.01 60);
+  --sidebar-foreground: oklch(0.88 0.015 85);
+  --sidebar-accent: oklch(0.28 0.015 60);
+  --sidebar-accent-foreground: oklch(0.85 0.06 75);
+  --sidebar-border: oklch(0.32 0.015 65);
+  --sidebar-ring: oklch(0.85 0.06 75);
 }
 
 @layer base {
@@ -74,11 +114,12 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary;
-    background-image: url("https://d2xsxph8kpxj0f.cloudfront.net/310519663647956884/ejgy8oorPjCnGNW9CiNrpB/mystical_studyboard_bg-euwQYaEES8xa56pCYDUsdb.webp");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    @apply bg-background text-foreground;
+    /* 눈이 편안한 은은한 한지/양장본 질감 배경 구현 */
+    background-image: radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0),
+                      radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0);
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -98,8 +139,8 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .flex {
@@ -107,49 +148,18 @@
     min-width: 0;
   }
 
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
   }
-  ::-webkit-scrollbar-track {
-    background: rgba(7, 11, 25, 0.5);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(212, 175, 55, 0.3);
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 175, 55, 0.6);
-  }
-}
 
-/* Custom Mystical Glow Animations */
-@keyframes mystical-glow {
-  0%, 100% {
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-    border-color: rgba(212, 175, 55, 0.4);
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
   }
-  50% {
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-    border-color: rgba(212, 175, 55, 0.8);
-  }
-}
-
-.animate-mystical-glow {
-  animation: mystical-glow 3s infinite ease-in-out;
-}
-
-/* Card 3D Flip Styles */
-.perspective-1000 {
-  perspective: 1000px;
-}
-.transform-style-3d {
-  transform-style: preserve-3d;
-}
-.backface-hidden {
-  backface-visibility: hidden;
-}
-.rotate-y-180 {
-  transform: rotateY(180deg);
 }

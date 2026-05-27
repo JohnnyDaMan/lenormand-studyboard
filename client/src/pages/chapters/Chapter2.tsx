@@ -3,21 +3,42 @@ import { LENORMAND_CARDS } from "@/const";
 import StudyCard from "@/components/StudyCard";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { MessageSquare, Heart, Home, Smile, ArrowRight, Info } from "lucide-react";
+import { MessageSquare, Heart, Home, Smile, Info } from "lucide-react";
 
 export default function Chapter2() {
   const [activeTab, setActiveTab] = useState("comm");
 
-  // Helper to find card by English name
-  const findCard = (name: string) => LENORMAND_CARDS.find((c) => c.nameEn.toLowerCase() === name.toLowerCase());
+  // 영어 카드 이름 매핑 헬퍼 (새로운 const.ts 기반으로 매핑)
+  const findCard = (name: string) => {
+    const cleanName = name.toLowerCase();
+    // 일부 이름 변형 보정
+    if (cleanName === "lord" || cleanName === "man") {
+      return LENORMAND_CARDS.find((c) => c.id === 28);
+    }
+    if (cleanName === "lady" || cleanName === "woman") {
+      return LENORMAND_CARDS.find((c) => c.id === 29);
+    }
+    if (cleanName === "stars") {
+      return LENORMAND_CARDS.find((c) => c.id === 16);
+    }
+    if (cleanName === "storks") {
+      return LENORMAND_CARDS.find((c) => c.id === 17);
+    }
+    if (cleanName === "paths") {
+      return LENORMAND_CARDS.find((c) => c.id === 22);
+    }
+    if (cleanName === "rod") {
+      return LENORMAND_CARDS.find((c) => c.id === 11); // 채찍(Whip/Rod)
+    }
+    return LENORMAND_CARDS.find((c) => c.name.toLowerCase() === cleanName);
+  };
 
-  // Themes data
   const themes = {
     comm: {
       title: "의사소통 (Communications)",
       icon: <MessageSquare className="w-5 h-5 text-primary" />,
       description: "기사와 편지는 소식을 가져옵니다. 기사는 아주 곧 직접 대면하는 소식이고, 편지는 전화, 문자, 서류 등을 뜻합니다.",
-      cards: ["Cavalier", "Letter", "Birds", "Rod"],
+      cards: ["Cavalier", "Letter", "Birds", "Whip"],
       explanations: [
         {
           cards: ["Cavalier"],
@@ -28,7 +49,7 @@ export default function Chapter2() {
           text: "전화 통화나 스카이프, 또는 온라인 매체를 통한 소식이나 대화를 뜻합니다."
         },
         {
-          cards: ["Rod", "Letter"],
+          cards: ["Whip", "Letter"],
           text: "공식적인 소장이나 통지서일 수 있으며, 논쟁을 유발하거나 소식이 전해진 후의 여파(논쟁)를 나타냅니다."
         }
       ]
@@ -37,10 +58,10 @@ export default function Chapter2() {
       title: "사랑 (Love)",
       icon: <Heart className="w-5 h-5 text-rose-500" />,
       description: "하트는 일반적인 사랑, 반지는 공식적인 약속과 헌신, 닻은 지속적이고 강인한 성격을 나타냅니다.",
-      cards: ["Heart", "Ring", "Anchor", "Lord", "Lady", "Cavalier", "Snake", "Lily"],
+      cards: ["Heart", "Ring", "Anchor", "Man", "Lady", "Cavalier", "Snake", "Lily"],
       explanations: [
         {
-          cards: ["Lord", "Lady"],
+          cards: ["Man", "Lady"],
           text: "이성애 관계에서의 남녀 파트너 카드 역할을 합니다."
         },
         {
@@ -55,12 +76,12 @@ export default function Chapter2() {
     },
     family: {
       title: "가족과 집 (Family and Home)",
-      icon: <Home className="w-5 h-5 text-emerald-500" />,
+      icon: <Home className="w-5 h-5 text-amber-600" />,
       description: "백합은 가족의 상징이며, 집은 반드시 가족이 아니더라도 함께 사는 동거인들을 나타냅니다.",
-      cards: ["Lily", "House", "Storks", "Child", "Bear", "Tower", "Fish", "Paths"],
+      cards: ["Lily", "House", "Stork", "Child", "Bear", "Tower", "Fish", "Road"],
       explanations: [
         {
-          cards: ["Storks"],
+          cards: ["Stork"],
           text: "지시자나 집 근처에 있을 때 이사, 주거 개선, 가정생활의 임박한 변화를 나타냅니다."
         },
         {
@@ -68,7 +89,7 @@ export default function Chapter2() {
           text: "아이는 자녀를, 곰과 탑은 부모님 또는 중요한 연상의 친척을 의미합니다."
         },
         {
-          cards: ["Fish", "Paths"],
+          cards: ["Fish", "Road"],
           text: "물고기는 형제자매를, 길은 사위 또는 며느리를 상징할 수 있습니다."
         },
         {
@@ -81,7 +102,7 @@ export default function Chapter2() {
       title: "행복 (Happiness)",
       icon: <Smile className="w-5 h-5 text-amber-500" />,
       description: "레노먼드에서 행복, 성공, 찬사, 평화를 예견하는 긍정적인 카드들입니다.",
-      cards: ["Clover", "Bouquet", "Stars", "Heart", "Lily", "Sun", "Moon"],
+      cards: ["Clover", "Bouquet", "Star", "Heart", "Lily", "Sun", "Moon"],
       explanations: [
         {
           cards: ["Clover", "Bouquet"],
@@ -92,7 +113,7 @@ export default function Chapter2() {
           text: "태양은 확실한 성공과 활력을, 달은 타인의 찬사와 감정적 충만함을 의미합니다."
         },
         {
-          cards: ["Stars", "Lily"],
+          cards: ["Star", "Lily"],
           text: "별은 희망과 명확한 방향을, 백합은 평화롭고 성숙한 만족을 가져옵니다."
         }
       ]
@@ -117,17 +138,17 @@ export default function Chapter2() {
       {/* Tabs Control */}
       <div className="flex justify-center">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-2xl">
-          <TabsList className="grid grid-cols-4 bg-card/40 border border-primary/20 p-1">
-            <TabsTrigger value="comm" className="text-xs font-esoteric py-2 flex items-center gap-1">
+          <TabsList className="grid grid-cols-4 bg-card border border-primary/20 p-1 shadow-sm">
+            <TabsTrigger value="comm" className="text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <MessageSquare className="w-3.5 h-3.5" /> COMM
             </TabsTrigger>
-            <TabsTrigger value="love" className="text-xs font-esoteric py-2 flex items-center gap-1">
+            <TabsTrigger value="love" className="text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <Heart className="w-3.5 h-3.5" /> LOVE
             </TabsTrigger>
-            <TabsTrigger value="family" className="text-xs font-esoteric py-2 flex items-center gap-1">
+            <TabsTrigger value="family" className="text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <Home className="w-3.5 h-3.5" /> HOME
             </TabsTrigger>
-            <TabsTrigger value="happy" className="text-xs font-esoteric py-2 flex items-center gap-1">
+            <TabsTrigger value="happy" className="text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <Smile className="w-3.5 h-3.5" /> HAPPY
             </TabsTrigger>
           </TabsList>
@@ -138,7 +159,7 @@ export default function Chapter2() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Theme Info & Specific Explanations */}
         <div className="lg:col-span-5 space-y-4">
-          <Card className="bg-card/30 backdrop-blur-md border-primary/20">
+          <Card className="bg-card border-primary/20 shadow-sm">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-2">
                 {currentTheme.icon}
@@ -153,18 +174,17 @@ export default function Chapter2() {
             <CardContent className="space-y-4">
               <div className="border-t border-primary/10 pt-3">
                 <h4 className="text-xs font-semibold text-primary/80 mb-2 flex items-center gap-1 font-serif-kr">
-                  <Info className="w-3.5 h-3.5" /> 조합 및 특별 의미
+                  <Info className="w-3.5 h-3.5 text-primary" /> 조합 및 특별 의미
                 </h4>
                 <div className="space-y-3">
                   {currentTheme.explanations.map((exp, idx) => (
-                    <div key={idx} className="bg-background/40 p-2.5 rounded-lg border border-primary/10 text-xs space-y-1.5 font-serif-kr">
-                      <div className="flex gap-1 items-center">
+                    <div key={idx} className="bg-background border border-primary/10 p-2.5 rounded-lg text-xs space-y-1.5 font-serif-kr shadow-sm">
+                      <div className="flex gap-1 items-center flex-wrap">
                         {exp.cards.map((cname) => {
                           const c = findCard(cname);
                           return c ? (
                             <span key={c.id} className="inline-flex items-center gap-0.5 bg-primary/10 text-primary px-1.5 py-0.5 rounded text-[10px] border border-primary/20">
-                              <span>{c.image}</span>
-                              <span className="font-esoteric text-[9px]">{c.nameEn}</span>
+                              <span className="font-esoteric text-[9px]">{c.krName}</span>
                             </span>
                           ) : null;
                         })}
@@ -180,7 +200,7 @@ export default function Chapter2() {
 
         {/* Right: Cards Display */}
         <div className="lg:col-span-7">
-          <Card className="bg-card/10 backdrop-blur-sm border-primary/10 h-full flex flex-col justify-center p-6">
+          <Card className="bg-card/50 border-primary/10 h-full flex flex-col justify-center p-6 shadow-inner">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
               {currentTheme.cards.map((cname) => {
                 const card = findCard(cname);

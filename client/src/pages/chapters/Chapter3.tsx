@@ -8,12 +8,29 @@ import { Briefcase, Coins, AlertTriangle, Activity, HelpCircle, PawPrint, Info }
 export default function Chapter3() {
   const [activeTab, setActiveTab] = useState("work");
 
-  const findCard = (name: string) => LENORMAND_CARDS.find((c) => c.nameEn.toLowerCase() === name.toLowerCase());
+  // 영어 카드 이름 매핑 헬퍼 (새로운 const.ts 기반으로 매핑)
+  const findCard = (name: string) => {
+    const cleanName = name.toLowerCase();
+    // 일부 이름 변형 보정
+    if (cleanName === "scythe") {
+      return LENORMAND_CARDS.find((c) => c.id === 10);
+    }
+    if (cleanName === "stork" || cleanName === "storks") {
+      return LENORMAND_CARDS.find((c) => c.id === 17);
+    }
+    if (cleanName === "mice" || cleanName === "mouse") {
+      return LENORMAND_CARDS.find((c) => c.id === 23);
+    }
+    if (cleanName === "whip" || cleanName === "rod") {
+      return LENORMAND_CARDS.find((c) => c.id === 11);
+    }
+    return LENORMAND_CARDS.find((c) => c.name.toLowerCase() === cleanName);
+  };
 
   const themes = {
     work: {
       title: "직업 (Work)",
-      icon: <Briefcase className="w-5 h-5 text-blue-400" />,
+      icon: <Briefcase className="w-5 h-5 text-blue-500" />,
       description: "업무 상태, 고용 안정성, 경쟁 관계 등을 나타내는 카드들입니다.",
       cards: ["Moon", "Anchor", "Ship", "Dog", "Fox"],
       explanations: [
@@ -41,7 +58,7 @@ export default function Chapter3() {
     },
     finances: {
       title: "재정 (Finances)",
-      icon: <Coins className="w-5 h-5 text-yellow-500" />,
+      icon: <Coins className="w-5 h-5 text-yellow-600" />,
       description: "수입, 금전적 손실, 기회 등 재정적 흐름과 안락함을 보여줍니다.",
       cards: ["Fish", "Bear", "Ship", "Anchor", "House", "Coffin", "Mice"],
       explanations: [
@@ -87,7 +104,7 @@ export default function Chapter3() {
         },
         {
           cards: ["Mountain"],
-          text: "구복자(seeker)의 카드 근처에 있을 때 적이나 큰 장애물의 신호입니다."
+          text: "질문자의 카드 근처에 있을 때 적이나 큰 장애물의 신호입니다."
         },
         {
           cards: ["Bear"],
@@ -97,9 +114,9 @@ export default function Chapter3() {
     },
     sickness: {
       title: "질병 (Sickness)",
-      icon: <Activity className="w-5 h-5 text-emerald-400" />,
+      icon: <Activity className="w-5 h-5 text-emerald-500" />,
       description: "주요 건강 카드와 질병의 만성도, 회복 여부를 예측하는 카드들입니다.",
-      cards: ["Tree", "Coffin", "Tower", "Rod", "Clouds"],
+      cards: ["Tree", "Coffin", "Tower", "Whip", "Clouds"],
       explanations: [
         {
           cards: ["Tree"],
@@ -110,11 +127,11 @@ export default function Chapter3() {
           text: "질병 그 자체나 활력의 저하를 직접적으로 보여줍니다."
         },
         {
-          cards: ["Tower", "Rod"],
+          cards: ["Tower", "Whip"],
           text: "탑이 채찍, 구름, 또는 관 카드와 함께 있을 때는 심각하고 장기적인 건강 문제를 나타냅니다."
         },
         {
-          cards: ["Rod", "Tree"],
+          cards: ["Whip", "Tree"],
           text: "나무나 관 카드와 함께 있는 채찍은 심각하고 만성적인 상태나 병의 재발을 보여줍니다."
         }
       ]
@@ -123,7 +140,7 @@ export default function Chapter3() {
       title: "문제 (Trouble)",
       icon: <HelpCircle className="w-5 h-5 text-rose-500" />,
       description: "장애물과 고난을 가져오고 다른 카드의 긍정성을 갉아먹는 카드들입니다.",
-      cards: ["Clouds", "Snake", "Coffin", "Scythe", "Rod", "Birds", "Fox", "Bear", "Mountain", "Cross", "Book", "Cavalier", "Letter"],
+      cards: ["Clouds", "Snake", "Coffin", "Scythe", "Whip", "Birds", "Fox", "Bear", "Mountain", "Cross", "Book", "Cavalier", "Letter"],
       explanations: [
         {
           cards: ["Clouds"],
@@ -141,9 +158,9 @@ export default function Chapter3() {
     },
     animals: {
       title: "동물 (Animals)",
-      icon: <PawPrint className="w-5 h-5 text-indigo-400" />,
+      icon: <PawPrint className="w-5 h-5 text-indigo-500" />,
       description: "실제 기르는 반려동물이나 자연의 동물들을 대변하는 카드 매핑입니다.",
-      cards: ["Dog", "Fox", "Cavalier", "Bear", "Birds", "Storks", "Mice", "Fish", "Snake"],
+      cards: ["Dog", "Fox", "Cavalier", "Bear", "Birds", "Stork", "Mice", "Fish", "Snake"],
       explanations: [
         {
           cards: ["Dog", "Fox"],
@@ -154,7 +171,7 @@ export default function Chapter3() {
           text: "기사는 말이나 가축(소, 돼지)을, 곰은 곰이나 대형 야생 동물을 나타냅니다."
         },
         {
-          cards: ["Birds", "Storks"],
+          cards: ["Birds", "Stork"],
           text: "새는 올빼미 크기 이하의 작은 새를, 황새는 그보다 큰 대형 조류를 상징합니다."
         },
         {
@@ -172,7 +189,7 @@ export default function Chapter3() {
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <h2 className="text-2xl font-bold text-primary font-esoteric tracking-wider flex items-center justify-center gap-2">
-          THEME MAPS
+          THEME MAPS (PART II)
         </h2>
         <p className="text-sm text-foreground/80 leading-relaxed font-serif-kr">
           직업, 재정, 경고, 건강, 문제, 동물 등 스터디보드에 필요한 핵심적인 상황별 테마들을 비주얼로 마스터합니다.
@@ -182,23 +199,23 @@ export default function Chapter3() {
       {/* Tabs Control */}
       <div className="flex justify-center">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-3xl">
-          <TabsList className="grid grid-cols-3 sm:grid-cols-6 bg-card/40 border border-primary/20 p-1 h-auto gap-1">
-            <TabsTrigger value="work" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center gap-1">
+          <TabsList className="grid grid-cols-3 sm:grid-cols-6 bg-card border border-primary/20 p-1 h-auto gap-1 shadow-sm">
+            <TabsTrigger value="work" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <Briefcase className="w-3.5 h-3.5" /> WORK
             </TabsTrigger>
-            <TabsTrigger value="finances" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center gap-1">
+            <TabsTrigger value="finances" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <Coins className="w-3.5 h-3.5" /> MONEY
             </TabsTrigger>
-            <TabsTrigger value="warnings" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center gap-1">
+            <TabsTrigger value="warnings" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <AlertTriangle className="w-3.5 h-3.5" /> WARN
             </TabsTrigger>
-            <TabsTrigger value="sickness" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center gap-1">
+            <TabsTrigger value="sickness" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <Activity className="w-3.5 h-3.5" /> HEALTH
             </TabsTrigger>
-            <TabsTrigger value="trouble" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center gap-1">
+            <TabsTrigger value="trouble" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <HelpCircle className="w-3.5 h-3.5" /> TROUBLE
             </TabsTrigger>
-            <TabsTrigger value="animals" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center gap-1">
+            <TabsTrigger value="animals" className="text-[10px] sm:text-xs font-esoteric py-2 flex items-center justify-center gap-1">
               <PawPrint className="w-3.5 h-3.5" /> ANIMAL
             </TabsTrigger>
           </TabsList>
@@ -209,7 +226,7 @@ export default function Chapter3() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Explanations */}
         <div className="lg:col-span-5 space-y-4">
-          <Card className="bg-card/30 backdrop-blur-md border-primary/20">
+          <Card className="bg-card border border-primary/20 shadow-sm">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-2">
                 {currentTheme.icon}
@@ -224,18 +241,17 @@ export default function Chapter3() {
             <CardContent className="space-y-4">
               <div className="border-t border-primary/10 pt-3">
                 <h4 className="text-xs font-semibold text-primary/80 mb-2 flex items-center gap-1 font-serif-kr">
-                  <Info className="w-3.5 h-3.5" /> 세부 해석 지침
+                  <Info className="w-3.5 h-3.5 text-primary" /> 세부 해석 지침
                 </h4>
                 <div className="space-y-3 max-h-[350px] overflow-y-auto pr-1">
                   {currentTheme.explanations.map((exp, idx) => (
-                    <div key={idx} className="bg-background/40 p-2.5 rounded-lg border border-primary/10 text-xs space-y-1.5 font-serif-kr">
-                      <div className="flex gap-1 items-center">
+                    <div key={idx} className="bg-background border border-primary/10 p-2.5 rounded-lg text-xs space-y-1.5 font-serif-kr shadow-sm">
+                      <div className="flex gap-1 items-center flex-wrap">
                         {exp.cards.map((cname) => {
                           const c = findCard(cname);
                           return c ? (
                             <span key={c.id} className="inline-flex items-center gap-0.5 bg-primary/10 text-primary px-1.5 py-0.5 rounded text-[10px] border border-primary/20">
-                              <span>{c.image}</span>
-                              <span className="font-esoteric text-[9px]">{c.nameEn}</span>
+                              <span className="font-esoteric text-[9px]">{c.krName}</span>
                             </span>
                           ) : null;
                         })}
@@ -251,11 +267,10 @@ export default function Chapter3() {
 
         {/* Right: Cards Display */}
         <div className="lg:col-span-7">
-          <Card className="bg-card/10 backdrop-blur-sm border-primary/10 h-full flex flex-col justify-center p-6">
+          <Card className="bg-card/50 border border-primary/10 h-full flex flex-col justify-center p-6 shadow-inner">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
               {currentTheme.cards.map((cname, idx) => {
                 const card = findCard(cname);
-                // For 'trouble' or large sets, we might limit display or wrap beautifully
                 return card ? (
                   <StudyCard
                     key={`${card.id}-${idx}`}
