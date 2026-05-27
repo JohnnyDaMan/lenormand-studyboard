@@ -18,6 +18,10 @@ export default defineConfig({
     },
   },
   root: path.resolve(__dirname, "./client"),
+  server: {
+    // 마누스 샌드박스 프록시 주소에서의 접속을 허용하기 위해 allowedHosts 설정을 추가합니다.
+    allowedHosts: "all",
+  },
   build: {
     outDir: path.resolve(__dirname, "./dist/public"),
     emptyOutDir: true,
