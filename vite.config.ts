@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -9,7 +10,10 @@ const __dirname = path.dirname(__filename);
 // GitHub Actions 빌드 환경(CI=true)일 때는 /lenormand-studyboard/를,
 // 로컬/마누스 샌드박스 미리보기 환경일 때는 루트(/)를 base 경로로 사용하도록 분기 처리합니다.
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    tailwindcss() // Tailwind CSS 4 Vite 플러그인을 명시적으로 추가하여 CSS가 정상 빌드되도록 합니다!
+  ],
   base: process.env.CI ? "/lenormand-studyboard/" : "/",
   resolve: {
     alias: {
